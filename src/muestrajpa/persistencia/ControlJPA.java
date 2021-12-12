@@ -5,6 +5,9 @@
  */
 package muestrajpa.persistencia;
 
+import muestrajpa.enumera.MedioDPago;
+import muestrajpa.logica.FormaDPago;
+
 /**
  *
  * @author profl
@@ -16,6 +19,21 @@ public class ControlJPA {
     ClienteJpaController clieJPA = new ClienteJpaController();
     PuestoJpaController puesJPA = new PuestoJpaController();
     EmpleadoJpaController emplJPA = new EmpleadoJpaController();
+
+    public void crearPuestosSolos(MedioDPago medio) {
+        
+        try {
+            
+            FormaDPago forma = new FormaDPago(medio);
+            
+            forpJPA.create(forma);
+            
+        } catch (Exception e) {
+            System.out.println("\n************  No se Creo la forma de Pago .....\n");
+            
+        }
+        
+    }
 
     
     
