@@ -23,6 +23,7 @@ public class Principal {
         
         ctrl.crearFormasDPagoSolos();
         ctrl.crearPuestosSolos();
+        ctrl.crearPersonaSolas();
         
         
         

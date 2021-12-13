@@ -5,12 +5,12 @@
  */
 package muestrajpa.persistencia;
 
-import java.awt.BorderLayout;
 import java.math.BigDecimal;
 import java.util.List;
 import muestrajpa.enumera.Cargo;
 import muestrajpa.enumera.MedioDPago;
 import muestrajpa.logica.FormaDPago;
+import muestrajpa.logica.Persona;
 import muestrajpa.logica.Puesto;
 
 /**
@@ -32,7 +32,6 @@ public class ControlJPA {
 
             BigDecimal comis = BigDecimal.valueOf(medio.getComision() * 10000);
             comis = comis.divide(BigDecimal.valueOf(100));
-            
 
             List<FormaDPago> formas = forpJPA.findFormaDPagoEntities();
             for (FormaDPago f : formas) {
@@ -64,11 +63,11 @@ public class ControlJPA {
 
         try {
             boolean cc = false;
-            
+
             List<Puesto> puestos = puesJPA.findPuestoEntities();
             for (Puesto f : puestos) {
                 if (f.getSuCargo() == puesto) {
-                    System.out.println("Ya está "+ f.getIdPuesto() + ") " + f.getSuCargo());
+                    System.out.println("Ya está " + f.getIdPuesto() + ") " + f.getSuCargo());
                     cc = true;
                     break;
                 }
@@ -80,11 +79,40 @@ public class ControlJPA {
             if (!cc) {
                 Puesto forma = new Puesto(puesto);
                 puesJPA.create(forma);
-                System.out.println("GUARDÓ: " + forma.getSuCargo() );
+                System.out.println("GUARDÓ: " + forma.getSuCargo());
 
             }
         } catch (Exception e) {
             System.out.println("\n************ PROBLEMAS CON LOS PUESTOS SOLOS.....\n");
+
+        }
+
+    }
+
+    public void crearPersonaSola(Persona p) {
+
+        try {
+            boolean cc = false;
+
+            List<Persona> pp = persJPA.findPersonaEntities();
+            for (Persona f : pp) {
+                if (f.getDni() == p.getDni()) {
+                    System.out.println("Ya está " + f.getApellido() + ", " + f.getNombre());
+                    cc = true;
+                    break;
+                }
+                if (cc) {
+                    break;
+                }
+
+            }
+            if (!cc) {
+                persJPA.create(p);
+                System.out.println("GUARDÓ: " + p);
+
+            }
+        } catch (Exception e) {
+            System.out.println("\n* * * *  NO SE GUARDÓ LA PERSONA .....\n");
 
         }
 
