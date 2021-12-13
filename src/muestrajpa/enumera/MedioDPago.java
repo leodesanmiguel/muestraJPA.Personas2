@@ -18,7 +18,7 @@ public enum MedioDPago {
     DEBITO("Débito", 0.03),
     CREDITO("Crédito", 0.09),
     MONEDERO("Monedero", 0.0),
-    TRANSFERENCIA("Transferencia", 2.45);
+    TRANSFERENCIA("Transferencia", 0.0245);
 
     private String medio;
     private double comision;

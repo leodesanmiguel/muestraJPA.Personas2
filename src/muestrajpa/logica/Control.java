@@ -5,6 +5,7 @@
  */
 package muestrajpa.logica;
 
+import muestrajpa.enumera.Cargo;
 import muestrajpa.persistencia.ControlJPA;
 import muestrajpa.enumera.MedioDPago;
 
@@ -16,12 +17,21 @@ public class Control {
 
     ControlJPA ctrlJPA = new ControlJPA();
 
-    public void crearPuestosSolos() {
+    public void crearFormasDPagoSolos() {
 
         for (MedioDPago medio : MedioDPago.values()) {
-            ctrlJPA.crearPuestosSolos(medio);
+            ctrlJPA.crearFormasDPagoSolas(medio);
         }
 
     }
 
+    public void crearPuestosSolos() {
+
+        for (Cargo puesto : Cargo.values()) {
+            ctrlJPA.crearPuestosSolas(puesto);
+        }
+
+    }
+    
+    
 }

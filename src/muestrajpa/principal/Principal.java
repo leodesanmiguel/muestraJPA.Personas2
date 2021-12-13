@@ -21,7 +21,9 @@ public class Principal {
         
         Control ctrl = new Control();
         
+        ctrl.crearFormasDPagoSolos();
         ctrl.crearPuestosSolos();
+        
         
         
     }
