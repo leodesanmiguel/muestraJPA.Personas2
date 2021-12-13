@@ -32,8 +32,9 @@ public class Cliente extends Persona implements Serializable {
     }
 
     public Cliente(String tipoCliente, Date fechaAlta,
-             List<FormaDPago> formasDPago, String nombre, String apellido,
-             int dni, String paisOrigen, String celular, String email,
+             List<FormaDPago> formasDPago
+            , String nombre, String apellido, int dni
+             , String paisOrigen, String celular, String email,
              Date fechaNacio) {
         super(nombre, apellido, dni, paisOrigen, celular, email, fechaNacio);
         this.tipoCliente = tipoCliente;

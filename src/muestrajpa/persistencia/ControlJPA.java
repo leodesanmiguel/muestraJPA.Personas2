@@ -6,9 +6,11 @@
 package muestrajpa.persistencia;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import muestrajpa.enumera.Cargo;
 import muestrajpa.enumera.MedioDPago;
+import muestrajpa.logica.Cliente;
 import muestrajpa.logica.FormaDPago;
 import muestrajpa.logica.Persona;
 import muestrajpa.logica.Puesto;
@@ -48,12 +50,14 @@ public class ControlJPA {
             if (!cc) {
                 FormaDPago forma = new FormaDPago(medio);
                 forpJPA.create(forma);
-                System.out.println("GUARDÓ: " + medio.getMedio() + " (" + comis + "%)");
+                System.out.println("GUARDÓ: " 
+                        + medio.getMedio() + " (" + comis + "%)");
 
             }
 
         } catch (Exception e) {
-            System.out.println("\n************  No se Creo la forma de Pago .....\n");
+            System.out.println("\n****"
+                    + "********  No se Creo la forma de Pago .....\n");
 
         }
 
@@ -67,7 +71,8 @@ public class ControlJPA {
             List<Puesto> puestos = puesJPA.findPuestoEntities();
             for (Puesto f : puestos) {
                 if (f.getSuCargo() == puesto) {
-                    System.out.println("Ya está " + f.getIdPuesto() + ") " + f.getSuCargo());
+                    System.out.println("Ya está " 
+                            + f.getIdPuesto() + ") " + f.getSuCargo());
                     cc = true;
                     break;
                 }
@@ -83,7 +88,8 @@ public class ControlJPA {
 
             }
         } catch (Exception e) {
-            System.out.println("\n************ PROBLEMAS CON LOS PUESTOS SOLOS.....\n");
+            System.out.println("\n*****"
+                    + "******* PROBLEMAS CON LOS PUESTOS SOLOS.....\n");
 
         }
 
@@ -97,7 +103,8 @@ public class ControlJPA {
             List<Persona> pp = persJPA.findPersonaEntities();
             for (Persona f : pp) {
                 if (f.getDni() == p.getDni()) {
-                    System.out.println("Ya está " + f.getApellido() + ", " + f.getNombre());
+                    System.out.println("Ya está " 
+                            + f.getApellido() + ", " + f.getNombre());
                     cc = true;
                     break;
                 }
@@ -113,6 +120,59 @@ public class ControlJPA {
             }
         } catch (Exception e) {
             System.out.println("\n* * * *  NO SE GUARDÓ LA PERSONA .....\n");
+
+        }
+
+    }
+
+    public FormaDPago obtenerUnaForma(MedioDPago m) {
+        try {
+            List<FormaDPago> formas = forpJPA.findFormaDPagoEntities();
+            for (FormaDPago f : formas) {
+                if (f.getMedios() == m) {
+                    return f;
+                }
+            }
+            return formas.get(0);
+        } catch (Exception e) {
+            System.out.println("\n*NO SE "
+                    + "QUE PASO CON LA BUQUEDA DE LA FORMA\n");
+
+        }
+        return null;
+
+    }
+
+    public Persona obtenerPersona(int dni) {
+        try {
+            List<Persona> pp = persJPA.findPersonaEntities();
+            for (Persona f : pp) {
+                if (f.getDni() == dni) {
+                    return f;
+                }
+            }
+            return null;
+
+        } catch (Exception e) {
+            System.out.println("\n* * * *  NO SE   "
+                    + "*E*N*C*O*N*T*R*O*   A LA PERSONA .....\n");
+
+        }
+        return null;
+    }
+
+    public void crear1Cliente(String tipoC, Date fechaAlta,
+            List<FormaDPago> lsForma, Persona p) {
+        try {
+            Cliente cliente = new Cliente(tipoC, fechaAlta, lsForma,
+                    p.getNombre(), p.getApellido(), p.getDni(),
+                    p.getPaisOrigen(), p.getCelular(), p.getEmail(),
+                    p.getFechaNacio());
+            clieJPA.create(cliente);
+            System.out.println("GUARDÓ: " + tipoC);
+
+        } catch (Exception e) {
+            System.out.println("\n*<<<  uuuu  no se creo el cliente >>>>\n");
 
         }
 

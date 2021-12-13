@@ -25,6 +25,8 @@ public class Principal {
         ctrl.crearPuestosSolos();
         ctrl.crearPersonaSolas();
         
+        ctrl.crearTresCliente(); 
+        ctrl.crearTresEmpleadpos();
         
         
     }
