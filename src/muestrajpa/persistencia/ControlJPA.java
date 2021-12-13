@@ -11,6 +11,7 @@ import java.util.List;
 import muestrajpa.enumera.Cargo;
 import muestrajpa.enumera.MedioDPago;
 import muestrajpa.logica.Cliente;
+import muestrajpa.logica.Empleado;
 import muestrajpa.logica.FormaDPago;
 import muestrajpa.logica.Persona;
 import muestrajpa.logica.Puesto;
@@ -50,7 +51,7 @@ public class ControlJPA {
             if (!cc) {
                 FormaDPago forma = new FormaDPago(medio);
                 forpJPA.create(forma);
-                System.out.println("GUARDÓ: " 
+                System.out.println("GUARDÓ: "
                         + medio.getMedio() + " (" + comis + "%)");
 
             }
@@ -71,7 +72,7 @@ public class ControlJPA {
             List<Puesto> puestos = puesJPA.findPuestoEntities();
             for (Puesto f : puestos) {
                 if (f.getSuCargo() == puesto) {
-                    System.out.println("Ya está " 
+                    System.out.println("Ya está "
                             + f.getIdPuesto() + ") " + f.getSuCargo());
                     cc = true;
                     break;
@@ -103,7 +104,7 @@ public class ControlJPA {
             List<Persona> pp = persJPA.findPersonaEntities();
             for (Persona f : pp) {
                 if (f.getDni() == p.getDni()) {
-                    System.out.println("Ya está " 
+                    System.out.println("Ya está "
                             + f.getApellido() + ", " + f.getNombre());
                     cc = true;
                     break;
@@ -170,6 +171,40 @@ public class ControlJPA {
                     p.getFechaNacio());
             clieJPA.create(cliente);
             System.out.println("GUARDÓ: " + tipoC);
+
+        } catch (Exception e) {
+            System.out.println("\n*<<<  uuuu  no se creo el cliente >>>>\n");
+
+        }
+
+    }
+
+    public Puesto obtenerPuesto(Cargo c) {
+        try {
+            List<Puesto> formas = puesJPA.findPuestoEntities();
+            for (Puesto f : formas) {
+                if (f.getSuCargo() == c) {
+                    return f;
+                }
+            }
+            return formas.get(0);
+        } catch (Exception e) {
+            System.out.println("\n*NO SE "
+                    + "QUE PASO CON LA BUQUEDA DEl /P/U/E/S/T/O/ \n");
+
+        }
+        return null;
+    }
+
+    public void crear1Empleado(Puesto pu, double sueldo, Persona pp) {
+        try {
+            Empleado emp = new Empleado(sueldo, pu,
+                    pp.getNombre(), pp.getApellido(), pp.getDni(),
+                    pp.getPaisOrigen(), pp.getCelular(), pp.getEmail(),
+                    pp.getFechaNacio());
+            emplJPA.create(emp);
+            System.out.println("GUARDÓ empleado : " + pp.getApellido()
+                    + " es " + pu.getSuCargo());
 
         } catch (Exception e) {
             System.out.println("\n*<<<  uuuu  no se creo el cliente >>>>\n");

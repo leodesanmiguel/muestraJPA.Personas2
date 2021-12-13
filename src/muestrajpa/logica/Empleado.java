@@ -42,6 +42,7 @@ public class Empleado extends Persona implements Serializable {
     }
 
     public double getSueldo() {
+        
         return sueldo;
     }
 

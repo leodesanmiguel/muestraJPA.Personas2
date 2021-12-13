@@ -74,22 +74,19 @@ public class Control {
                 System.out.println("NO ENCONTRÓ EL MEDIO DE PAGO " + MedioDPago.EFECTIVO);
                 System.out.println("Se asigna --> " + forma1.getMedios());
             }
-            
+
             //  1) Tipo de cliente
             String tipoC = "Pagador " + forma1.getMedios().toString();
-            
+
             //  2) Fecha de Alta
             Date fechaAlta = new Date();
-            
+
             //  3) Lista de Formas de pago
             List<FormaDPago> lsForma = new ArrayList<>();
             lsForma.add(forma1);
-            
+
             ctrlJPA.crear1Cliente(tipoC, fechaAlta, lsForma, pp);
-            
-            
-            
-            
+
         } else {
             System.out.println("NO ENCONTRÉ A LA PERSONA con el DNI: " + dni1 + "******");
         }
@@ -97,6 +94,31 @@ public class Control {
     }
 
     public void crearTresEmpleadpos() {
+        int[] pp = new int[]{234565, 12234565, 23234565};
+
+        for (int i = 0; i < pp.length; i++) {
+            crear1Empleado(pp[i]);
+        }
+    }
+
+    private void crear1Empleado(int dni1) {
+
+        //  PERSONA
+        Persona pp = obtener1Persona(dni1);
+        if (pp != null) {
+            
+            //  1)  Puesto del Empleado
+            Puesto pu = obtenerPuesto(Cargo.VENDEDOR);
+            
+            //  2) Tipo de SUELDO       VENDEDOR, JEFE, ADMIN
+            double[] sueldos = new double[]{65000,74500,125500};
+            double sueldo = sueldos[pu.getSuCargo().ordinal()];
+            
+            ctrlJPA.crear1Empleado(pu, sueldo,  pp);
+
+        } else {
+            System.out.println("NO ENCONTRÉ A LA PERSONA con el DNI: " + dni1 + "******");
+        }
 
     }
 
@@ -111,4 +133,9 @@ public class Control {
         return ctrlJPA.obtenerPersona(dni);
     }
 
+    private Puesto obtenerPuesto(Cargo c){
+        
+        return ctrlJPA.obtenerPuesto(c);
+    }
+    
 }
