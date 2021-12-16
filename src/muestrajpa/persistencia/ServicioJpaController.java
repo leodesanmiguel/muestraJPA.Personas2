@@ -14,35 +14,34 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import muestrajpa.logica.Puesto;
+import muestrajpa.logica.Servicio;
 import muestrajpa.persistencia.exceptions.NonexistentEntityException;
 
 /**
  *
  * @author profl
  */
-public class PuestoJpaController implements Serializable {
+public class ServicioJpaController implements Serializable {
 
-    public PuestoJpaController(EntityManagerFactory emf) {
+    public ServicioJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
-    public PuestoJpaController() {
+    public ServicioJpaController() {
         this.emf = Persistence.createEntityManagerFactory("Personas2PU");
     }
-
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(Puesto puesto) {
+    public void create(Servicio servicio) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(puesto);
+            em.persist(servicio);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -51,19 +50,19 @@ public class PuestoJpaController implements Serializable {
         }
     }
 
-    public void edit(Puesto puesto) throws NonexistentEntityException, Exception {
+    public void edit(Servicio servicio) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            puesto = em.merge(puesto);
+            servicio = em.merge(servicio);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = puesto.getIdPuesto();
-                if (findPuesto(id) == null) {
-                    throw new NonexistentEntityException("The puesto with id " + id + " no longer exists.");
+                int id = servicio.getCodigoServicio();
+                if (findServicio(id) == null) {
+                    throw new NonexistentEntityException("The servicio with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -79,14 +78,14 @@ public class PuestoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Puesto puesto;
+            Servicio servicio;
             try {
-                puesto = em.getReference(Puesto.class, id);
-                puesto.getIdPuesto();
+                servicio = em.getReference(Servicio.class, id);
+                servicio.getCodigoServicio();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The puesto with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The servicio with id " + id + " no longer exists.", enfe);
             }
-            em.remove(puesto);
+            em.remove(servicio);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -95,19 +94,19 @@ public class PuestoJpaController implements Serializable {
         }
     }
 
-    public List<Puesto> findPuestoEntities() {
-        return findPuestoEntities(true, -1, -1);
+    public List<Servicio> findServicioEntities() {
+        return findServicioEntities(true, -1, -1);
     }
 
-    public List<Puesto> findPuestoEntities(int maxResults, int firstResult) {
-        return findPuestoEntities(false, maxResults, firstResult);
+    public List<Servicio> findServicioEntities(int maxResults, int firstResult) {
+        return findServicioEntities(false, maxResults, firstResult);
     }
 
-    private List<Puesto> findPuestoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Servicio> findServicioEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Puesto.class));
+            cq.select(cq.from(Servicio.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -119,20 +118,20 @@ public class PuestoJpaController implements Serializable {
         }
     }
 
-    public Puesto findPuesto(int id) {
+    public Servicio findServicio(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Puesto.class, id);
+            return em.find(Servicio.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getPuestoCount() {
+    public int getServicioCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Puesto> rt = cq.from(Puesto.class);
+            Root<Servicio> rt = cq.from(Servicio.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -140,5 +139,5 @@ public class PuestoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

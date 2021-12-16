@@ -7,12 +7,17 @@ package muestrajpa.logica;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,26 +28,49 @@ import javax.persistence.Table;
 @Table(name = "empleados")
 public class Empleado extends Persona implements Serializable {
 
-    private double sueldo;
     
+    int idEmpleado;
+    private double sueldo;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "IDPUESTO", nullable = false)
     private Puesto cargo;
+
+    @OneToMany( cascade = CascadeType.ALL,
+             orphanRemoval = true)
+    private List<Venta> ventas;
 
     public Empleado() {
 
     }
 
-    public Empleado(double sueldo, Puesto cargo,
+    public Empleado(int idEmpleado, double sueldo, Puesto cargo,
             String nombre, String apellido, int dni,
             String paisOrigen, String celular, String email, Date fechaNacio) {
         super(nombre, apellido, dni, paisOrigen, celular, email, fechaNacio);
+        this.idEmpleado = idEmpleado;
         this.sueldo = sueldo;
         this.cargo = cargo;
     }
 
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    public List<Venta> getIdVenta() {
+        return ventas;
+    }
+
+    public void setIdVenta(List<Venta> ventas) {
+        this.ventas = ventas;
+    }
+
     public double getSueldo() {
-        
+
         return sueldo;
     }
 

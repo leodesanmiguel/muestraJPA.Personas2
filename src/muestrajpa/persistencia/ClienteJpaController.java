@@ -29,7 +29,7 @@ public class ClienteJpaController implements Serializable {
     private EntityManagerFactory emf = null;
     
     public ClienteJpaController(){
-        emf = Persistence.createEntityManagerFactory("Personas2PU");
+        this.emf = Persistence.createEntityManagerFactory("Personas2PU");
     }
 
     public EntityManager getEntityManager() {

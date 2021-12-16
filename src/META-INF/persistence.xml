@@ -7,6 +7,9 @@
     <class>muestrajpa.logica.FormaDPago</class>
     <class>muestrajpa.logica.Persona</class>
     <class>muestrajpa.logica.Puesto</class>
+    <class>muestrajpa.logica.Paquete</class>
+    <class>muestrajpa.logica.Servicio</class>
+    <class>muestrajpa.logica.Venta</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/muestra_jpa_persona?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="usrpolo"/>

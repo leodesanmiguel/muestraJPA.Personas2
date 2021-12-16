@@ -24,9 +24,13 @@ public class Cliente extends Persona implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FormaDPago> formasDPago;
 
+    @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Venta> compras;
+    
+    
     public Cliente() {
 
     }
@@ -42,5 +46,39 @@ public class Cliente extends Persona implements Serializable {
         this.formasDPago = formasDPago;
     }
 
+    public String getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(String tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public List<FormaDPago> getFormasDPago() {
+        return formasDPago;
+    }
+
+    public void setFormasDPago(List<FormaDPago> formasDPago) {
+        this.formasDPago = formasDPago;
+    }
+
+    public List<Venta> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Venta> compras) {
+        this.compras = compras;
+    }
+
+    
+    
     
 }

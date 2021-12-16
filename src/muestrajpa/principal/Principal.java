@@ -28,7 +28,12 @@ public class Principal {
         ctrl.crearTresCliente(); 
         ctrl.crearTresEmpleadpos();
         
+        ctrl.crearServiciosSolos();
         
+        ctrl.crearPaquetesvarios();
+        
+        
+        ctrl.crearVariasVentas();
     }
     
 }
